@@ -4,7 +4,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-def get_reviews_keyboard():
+def get_feedback_keyboard():
     builder = InlineKeyboardBuilder()
     builder.row(
         types.InlineKeyboardButton(
@@ -24,7 +24,7 @@ def get_reviews_keyboard():
     )
     return builder.as_markup()
 
-REVIEWS_TEXT = (
+FEEDBACK_TEXT = (
     "<b>💬 Отзывы и предложения</b>\n\n"
     "Обратная связь — лучшая награда за мою работу! Я делаю каждый десерт с заботой "
     "о вашем здоровье и всегда рад вашим отзывам и пожеланиям.\n\n"
@@ -34,22 +34,22 @@ REVIEWS_TEXT = (
     "📩 <b>Direct Email:</b> info@mersinwellness.com"
 )
 
-# Обработчик команды /reviews из меню и текстом
+# Слушаем /feedback, /reviews и тексты
+@router.message(Command("feedback"))
 @router.message(Command("reviews"))
-@router.message(F.text.in_({"/reviews", "reviews", "Отзывы"}))
-async def cmd_reviews(message: types.Message):
+@router.message(F.text.in_({"/feedback", "/reviews", "feedback", "reviews", "Отзывы"}))
+async def cmd_feedback(message: types.Message):
     await message.answer(
-        text=REVIEWS_TEXT, 
+        text=FEEDBACK_TEXT, 
         parse_mode="HTML", 
-        reply_markup=get_reviews_keyboard()
+        reply_markup=get_feedback_keyboard()
     )
 
-# Обработчик нажатия на инлайн-кнопку "reviews"
-@router.callback_query(F.data == "reviews")
-async def cb_reviews(callback: types.CallbackQuery):
+@router.callback_query(F.data.in_({"feedback", "reviews"}))
+async def cb_feedback(callback: types.CallbackQuery):
     await callback.message.answer(
-        text=REVIEWS_TEXT, 
+        text=FEEDBACK_TEXT, 
         parse_mode="HTML", 
-        reply_markup=get_reviews_keyboard()
+        reply_markup=get_feedback_keyboard()
     )
     await callback.answer()
