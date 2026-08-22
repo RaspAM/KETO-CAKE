@@ -16,10 +16,6 @@ def get_feedback_keyboard():
         types.InlineKeyboardButton(
             text="✍️ Написать в Telegram", 
             url="https://t.me/Mersinwellness"
-        ),
-        types.InlineKeyboardButton(
-            text="📧 Написать на Email", 
-            url="mailto:info@mersinwellness.com"
         )
     )
     return builder.as_markup()
