@@ -34,8 +34,9 @@ REVIEWS_TEXT = (
     "📩 <b>Direct Email:</b> info@mersinwellness.com"
 )
 
-# Обработчик команды /reviews из синего меню
+# Обработчик команды /reviews из меню и текстом
 @router.message(Command("reviews"))
+@router.message(F.text.in_({"/reviews", "reviews", "Отзывы"}))
 async def cmd_reviews(message: types.Message):
     await message.answer(
         text=REVIEWS_TEXT, 
