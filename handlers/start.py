@@ -4,15 +4,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-def get_start_keyboard():
-    builder = InlineKeyboardBuilder()
-    builder.row(types.InlineKeyboardButton(text="🍰 Образцы кето-тортов и КБЖУ", callback_data="catalog"))
-    builder.row(types.InlineKeyboardButton(text="🌱 КЕТО и ПП (Правильное Питание)", callback_data="info"))
-    builder.row(types.InlineKeyboardButton(text="🛠 Добавьте ингредиенты", callback_data="custom"))
-    builder.row(types.InlineKeyboardButton(text="⭐ Отзывы / Оставить отзыв", callback_data="reviews"))
-    builder.row(types.InlineKeyboardButton(text="📞 Связаться со мной", callback_data="contacts"))
-    return builder.as_markup()
-
+# 1. Приветствие по /start — чистый текст БЕЗ инлайн-кнопок
 @router.message(CommandStart())
 async def cmd_start(message: types.Message):
     text = (
@@ -23,21 +15,22 @@ async def cmd_start(message: types.Message):
         "Качественную кокосовую и миндальную муку, муку из семян льна и чиа, псиллиум, "
         "свежие сезонные ягоды, фрукты, орехи, натуральные подсластители (стевия и монк фрукт), ароматные специи.\n\n"
         "Всегда готовлю с душой и любовью для вашего доброго здоровья.\n\n"
-        "<b>Выберите интересующий раздел в «Меню»:</b>"
+        "<b>Выберите интересующий раздел в левом синем «Меню» 👇</b>"
     )
     
-    await message.answer(text, parse_mode="HTML", reply_markup=get_start_keyboard())
+    await message.answer(text, parse_mode="HTML")
 
-# Обработка раздела Контакты (как через команду /contacts, так и по кнопке)
+# 2. Обработка раздела Контакты (команда /contacts из синего меню)
 @router.message(Command("contacts"))
 @router.callback_query(F.data == "contacts")
 async def show_contacts(event: types.Message | types.CallbackQuery):
     text = (
         "<b>Контакты и заказ:</b>\n\n"
-        "📍 <b>Локация:</b> Mersin Mezitli Davultepe Soray-2 \n"
-        "📱 <b>WhatsApp:</b> +90 520 592 88\n"
+        "📍 <b>Локация:</b> Mersin Mezitli Davultepe Soray-2\n"
+        "📱 <b>WhatsApp / Тел:</b> +90 520 592 88\n"
         "🌐 <b>Сайт:</b> mersinwellness.com\n\n"
-        "Для расчета заказа и консультации звоните или напишите через WhatsApp в телеграм:"
+        "Для расчета заказа и консультации звоните мне или напишите в WhatsApp или Telegram:"
+    )
     
     builder = InlineKeyboardBuilder()
     builder.row(types.InlineKeyboardButton(text="📲 Написать в WhatsApp", url="https://wa.me/9052059288"))
