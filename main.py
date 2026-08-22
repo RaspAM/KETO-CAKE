@@ -5,7 +5,12 @@ from aiogram import Bot, Dispatcher
 from aiogram.types import BotCommand
 from aiohttp import web
 from config import BOT_TOKEN
-from handlers import start, catalog, keto_info, reviews
+
+# Прямой точечный импорт роутеров из модулей
+from handlers.start import router as start_router
+from handlers.catalog import router as catalog_router
+from handlers.keto_info import router as keto_info_router
+from handlers.reviews import router as reviews_router
 
 logging.basicConfig(level=logging.INFO)
 
@@ -40,11 +45,11 @@ async def main():
     # Регистрируем меню в Telegram
     await set_main_menu(bot)
 
-    # Подключаем роутеры команд и кнопок
-    dp.include_router(start.router)
-    dp.include_router(catalog.router)
-    dp.include_router(keto_info.router)
-    dp.include_router(reviews.router)
+    # Подключаем роутеры команд и кнопок напрямую
+    dp.include_router(start_router)
+    dp.include_router(catalog_router)
+    dp.include_router(keto_info_router)
+    dp.include_router(reviews_router)
 
     # Запускаем фоновый веб-сервер для Render
     await start_health_check_server()
