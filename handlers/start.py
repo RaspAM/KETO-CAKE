@@ -4,7 +4,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-# 1. Приветствие по /start — БЕЗ инлайн-кнопок под сообщением
+# 1. Приветствие по /start — БЕЗ инлайн-кнопки под сообщением
 @router.message(CommandStart())
 async def cmd_start(message: types.Message):
     text = (
@@ -20,7 +20,7 @@ async def cmd_start(message: types.Message):
     
     await message.answer(text, parse_mode="HTML")
 
-# 2. Обработка раздела Контакты (команда /contacts из синего меню или callback)
+# 2. Обработка раздела Контакты (команда /contacts из синего меню)
 @router.message(Command("contacts"))
 @router.callback_query(F.data == "contacts")
 async def show_contacts(event: types.Message | types.CallbackQuery):
