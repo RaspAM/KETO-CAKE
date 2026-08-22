@@ -1,29 +1,54 @@
-from aiogram import Router, F, types
+from aiogram import Router, types, F
+from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-REVIEWS_LIST = [
-    {
-        "author": "Ирина",
-        "text": "Заказывала кето-чизкейк на день рождения. Это просто восторг! Нежный, абсолютно без приторности, и главное — никакой тяжести в животе."
-    },
-    {
-        "author": "Мария",
-        "text": "Шоколадный торт превзошел все ожидания! Семья даже не поняла, что он без сахара и муки. Теперь за десертами только к Андрею."
-    }
-]
-
-@router.callback_query(F.data == "reviews")
-async def show_reviews(callback: types.CallbackQuery):
-    await callback.answer()
+async def send_reviews(event: types.Message | types.CallbackQuery):
+    text = (
+        "<b>💬 Отзывы и предложения</b>\n\n"
+        "Обратная связь — лучшая награда за мою работу! Я делаю каждый десерт с любовью "
+        "к вашему здоровью и всегда рад вашим отзывам и пожеланиям.\n\n"
+        "<b>Вы можете:</b>\n"
+        "• Почитать отзывы покупателей на моем сайте\n"
+        "• Оставить свой отзыв или предложение мне лично\n\n"
+        "📩 <b>Direct Email:</b> info@mersinwellness.com"
+    )
     
-    text = "<b>⭐ Отзывы наших клиентов:</b>\n\n"
-    for item in REVIEWS_LIST:
-        text += f"💬 <i>«{item['text']}»</i>\n— <b>{item['author']}</b>\n\n"
-        
     builder = InlineKeyboardBuilder()
-    builder.row(types.InlineKeyboardButton(text="🍰 Посмотреть образцы и КБЖУ", callback_data="catalog"))
-    builder.row(types.InlineKeyboardButton(text="💬 Написать в Telegram", url="https://t.me/Mersinwellness"))
+    
+    # 1. Посмотреть отзывы на сайте
+    builder.row(
+        types.InlineKeyboardButton(
+            text="⭐️ Читать отзывы на сайте", 
+            url="https://mersinwellness.com/reviews.html"
+        )
+    )
+    
+    # 2. Понятными и прямыми кнопками даем выбор связи
+    builder.row(
+        types.InlineKeyboardButton(
+            text="✍️ Написать в Telegram", 
+            url="https://t.me/Mersinwellness"
+        ),
+        types.InlineKeyboardButton(
+            text="📧 Написать на Email", 
+            url="mailto:info@mersinwellness.com"
+        )
+    )
 
-    await callback.message.answer(text, parse_mode="HTML", reply_markup=builder.as_markup())
+    if isinstance(event, types.CallbackQuery):
+        await event.message.answer(text, parse_mode="HTML", reply_markup=builder.as_markup())
+        await event.answer()
+    else:
+        await event.answer(text, parse_mode="HTML", reply_markup=builder.as_markup())
+
+# Обработчик команды /reviews из синего меню
+@router.message(Command("reviews"))
+async def cmd_reviews(message: types.Message):
+    await send_reviews(message)
+
+# Обработчик инлайн-кнопки
+@router.callback_query(F.data == "reviews")
+async def cb_reviews(callback: types.CallbackQuery):
+    await send_reviews(callback)
