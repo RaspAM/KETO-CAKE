@@ -3,7 +3,8 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-@router.callback_query(F.data == "keto_info")
+# Исправлено "keto_info" на "info"
+@router.callback_query(F.data == "info")
 async def show_keto_info(callback: types.CallbackQuery):
     await callback.answer()
     
@@ -23,7 +24,7 @@ async def show_keto_info(callback: types.CallbackQuery):
     )
     
     builder = InlineKeyboardBuilder()
-    builder.row(types.InlineKeyboardButton(text="🍰 Посмотреть образцы и КБЖУ", callback_data="catalog"))
-    builder.row(types.InlineKeyboardButton(text="💬 Написать в Telegram", url="https://t.me/Mersinwellness"))
+    builder.row(types.InlineKeyboardButton(text="📖 Читать статью на сайте", url="https://mersinwellness.com/keto-health.html"))
+    builder.row(types.InlineKeyboardButton(text="⬅️ Главное меню", callback_data="main_menu"))
 
-    await callback.message.answer(text, parse_mode="HTML", reply_markup=builder.as_markup())
+    await callback.message.edit_text(text, parse_mode="HTML", reply_markup=builder.as_markup())
