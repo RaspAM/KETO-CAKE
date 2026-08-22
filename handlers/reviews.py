@@ -4,7 +4,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-async def send_reviews(event: types.Message | types.CallbackQuery):
+async def send_reviews_info(event: types.Message | types.CallbackQuery):
     text = (
         "<b>💬 Отзывы и предложения</b>\n\n"
         "Обратная связь — лучшая награда за мою работу! Я делаю каждый десерт с любовью "
@@ -17,7 +17,6 @@ async def send_reviews(event: types.Message | types.CallbackQuery):
     
     builder = InlineKeyboardBuilder()
     
-    # 1. Посмотреть отзывы на сайте
     builder.row(
         types.InlineKeyboardButton(
             text="⭐️ Читать отзывы на сайте", 
@@ -25,7 +24,6 @@ async def send_reviews(event: types.Message | types.CallbackQuery):
         )
     )
     
-    # 2. Понятными и прямыми кнопками даем выбор связи
     builder.row(
         types.InlineKeyboardButton(
             text="✍️ Написать в Telegram", 
@@ -43,12 +41,12 @@ async def send_reviews(event: types.Message | types.CallbackQuery):
     else:
         await event.answer(text, parse_mode="HTML", reply_markup=builder.as_markup())
 
-# Обработчик команды /reviews из синего меню
+# 1. Ловим команду /reviews из синего меню
 @router.message(Command("reviews"))
 async def cmd_reviews(message: types.Message):
-    await send_reviews(message)
+    await send_reviews_info(message)
 
-# Обработчик инлайн-кнопки
+# 2. Ловим нажатие на инлайн-кнопку
 @router.callback_query(F.data == "reviews")
 async def cb_reviews(callback: types.CallbackQuery):
-    await send_reviews(callback)
+    await send_reviews_info(callback)
