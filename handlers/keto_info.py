@@ -25,6 +25,6 @@ async def show_keto_info(callback: types.CallbackQuery):
     
     builder = InlineKeyboardBuilder()
     builder.row(types.InlineKeyboardButton(text="📖 Читать статью на сайте", url="https://mersinwellness.com/keto-health.html"))
-    builder.row(types.InlineKeyboardButton(text="⬅️ Главное меню", callback_data="main_menu"))
+   
 
     await callback.message.edit_text(text, parse_mode="HTML", reply_markup=builder.as_markup())
