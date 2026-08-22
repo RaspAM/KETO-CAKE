@@ -5,7 +5,6 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-# Прямые веб-ссылки на фото с вашего сайта
 BASE_IMG_URL = "https://mersinwellness.com/images/"
 
 CATALOG_ITEMS = [
@@ -84,11 +83,13 @@ async def send_catalog_item(message: types.Message, item: dict):
             reply_markup=builder.as_markup()
         )
 
+# Отдельный обработчик для команды из меню /catalog
 @router.message(Command("catalog"))
 async def cmd_catalog(message: types.Message):
     for item in CATALOG_ITEMS:
         await send_catalog_item(message, item)
 
+# Отдельный обработчик для нажатия инлайн-кнопки
 @router.callback_query(F.data == "catalog")
 async def cb_catalog(callback: types.CallbackQuery):
     await callback.answer()
