@@ -16,6 +16,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Меню бота в Telegram
 async def set_main_menu(bot: Bot):
+    await bot.delete_my_commands()
     commands = [
         BotCommand(command="start", description="Главное меню / Перезапуск"),
         BotCommand(command="catalog", description="🍰 Каталог десертов и КБЖУ"),
