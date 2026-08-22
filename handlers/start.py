@@ -4,7 +4,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-# 1. Приветствие по /start — БЕЗ инлайн-кнопки под сообщением
+# 1. Приветствие по /start — чистый текст БЕЗ инлайн-кнопок
 @router.message(CommandStart())
 async def cmd_start(message: types.Message):
     text = (
