@@ -4,7 +4,8 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
-async def send_reviews_info(event: types.Message | types.CallbackQuery):
+# Главная функция отправки блока отзывов
+async def send_reviews_card(event: types.Message | types.CallbackQuery):
     text = (
         "<b>💬 Отзывы и предложения</b>\n\n"
         "Обратная связь — лучшая награда за мою работу! Я делаю каждый десерт с любовью "
@@ -41,12 +42,12 @@ async def send_reviews_info(event: types.Message | types.CallbackQuery):
     else:
         await event.answer(text, parse_mode="HTML", reply_markup=builder.as_markup())
 
-# 1. Ловим команду /reviews из синего меню
+# Перехватываем команду /reviews из меню
 @router.message(Command("reviews"))
 async def cmd_reviews(message: types.Message):
-    await send_reviews_info(message)
+    await send_reviews_card(message)
 
-# 2. Ловим нажатие на инлайн-кнопку
+# Перехватываем нажатие инлайн-кнопки "reviews"
 @router.callback_query(F.data == "reviews")
 async def cb_reviews(callback: types.CallbackQuery):
-    await send_reviews_info(callback)
+    await send_reviews_card(callback)
