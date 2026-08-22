@@ -1,30 +1,24 @@
-from aiogram import Router, F, types
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram import Router, types, F
+from aiogram.filters import Command
 
 router = Router()
 
-# Исправлено "keto_info" на "info"
+@router.message(Command("info"))
 @router.callback_query(F.data == "info")
-async def show_keto_info(callback: types.CallbackQuery):
-    await callback.answer()
-    
+async def show_info(event: types.Message | types.CallbackQuery):
     text = (
-        "<b>В чём польза КЕТО и Правильного Питания?</b>\n\n"
-        "<b>1. Безопасность и здоровье</b>\n"
-        "• <b>Здоровье зубов:</b> Мои десерты не провоцируют кариес.\n"
-        "• <b>Комфорт ЖКТ:</b> Отсутствие сахара предотвращает рост патогенных бактерий, избавляя от изжоги и тяжести.\n"
-        "• <b>Стабильный уровень сахара:</b> Без резких скачков глюкозы в крови после еды.\n\n"
-        "<b>2. Долгое чувство сытости и контроль аппетита</b>\n"
-        "Выпечка богата натуральной клетчаткой без крахмала, стимулирует выработку гормона сытости (GLP-1) "
-        "и бутирата (масляной кислоты) — ключевого метаболита здоровья кишечника и защиты слизистой. "
-        "Вы получаете ровную энергию и сытость без переедания.\n\n"
-        "<b>3. Легкость и поддержка обмена веществ</b>\n"
-        "Минимум нагрузки на метаболизм. Отказ от добавленного сахара — доказанный способ снизить риски ожирения, "
-        "диабета 2 и 3 типа, а также сердечно-сосудистых заболеваний."
+        "<b>🌱 КЕТО и ПП (Правильное Питание)</b>\n\n"
+        "Я готовлю десерты, которые помогают сохранять здоровье, стройность и отличное самочувствие без отказа от сладкого!\n\n"
+        "<b>Главные принципы моих авторских сладостей:</b>\n"
+        "• <b>Без сахара:</b> использую только натуральные безопасные подсластители с нулевым гликемическим индексом (стевия, монк фрукт).\n"
+        "• <b>Без глютена:</b> основа — миндальная, кокосовая мука, мука из семян льна и чиа, псиллиум.\n"
+        "• <b>Без трансжиров:</b> только натуральное сливочное масло, оливковое масло холодного отжима и масло какао.\n"
+        "• <b>Идеально для КЕТО:</b> минимум чистых углеводов, максимум пользы и сытости.\n\n"
+        "Каждое изделие рассчитывается по КБЖУ, чтобы вам было удобно планировать свой рацион!"
     )
-    
-    builder = InlineKeyboardBuilder()
-    builder.row(types.InlineKeyboardButton(text="📖 Читать статью на сайте", url="https://mersinwellness.com/keto-health.html"))
-   
 
-    await callback.message.edit_text(text, parse_mode="HTML", reply_markup=builder.as_markup())
+    if isinstance(event, types.CallbackQuery):
+        await event.message.answer(text, parse_mode="HTML")
+        await event.answer()
+    else:
+        await event.answer(text, parse_mode="HTML")
