@@ -26,15 +26,15 @@ def get_reviews_keyboard():
 
 REVIEWS_TEXT = (
     "<b>💬 Отзывы и предложения</b>\n\n"
-    "Обратная связь — лучшая награда за мою работу! Я делаю каждый десерт с любовью "
-    "к вашему здоровью и всегда рад вашим отзывам и пожеланиям.\n\n"
+    "Обратная связь — лучшая награда за мою работу! Я делаю каждый десерт с заботой "
+    "о вашем здоровье и всегда рад вашим отзывам и пожеланиям.\n\n"
     "<b>Вы можете:</b>\n"
     "• Почитать отзывы покупателей на моем сайте\n"
     "• Оставить свой отзыв или предложение мне лично\n\n"
     "📩 <b>Direct Email:</b> info@mersinwellness.com"
 )
 
-# 1. Отдельный хэндлер для команды из меню /reviews
+# Обработчик команды /reviews из синего меню
 @router.message(Command("reviews"))
 async def cmd_reviews(message: types.Message):
     await message.answer(
@@ -43,7 +43,7 @@ async def cmd_reviews(message: types.Message):
         reply_markup=get_reviews_keyboard()
     )
 
-# 2. Отдельный хэндлер для нажатия на инлайн-кнопку
+# Обработчик нажатия на инлайн-кнопку "reviews"
 @router.callback_query(F.data == "reviews")
 async def cb_reviews(callback: types.CallbackQuery):
     await callback.message.answer(
