@@ -1,5 +1,6 @@
 from aiogram import Router, types, F
 from aiogram.filters import Command
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 router = Router()
 
@@ -16,9 +17,18 @@ async def show_info(event: types.Message | types.CallbackQuery):
         "• <b>Идеально для КЕТО:</b> минимум чистых углеводов, максимум пользы и сытости.\n\n"
         "Каждое изделие рассчитывается по КБЖУ, чтобы вам было удобно планировать свой рацион!"
     )
+    
+    # Кнопка со ссылкой на статью на вашем сайте
+    builder = InlineKeyboardBuilder()
+    builder.row(
+        types.InlineKeyboardButton(
+            text="📖 Подробнее о КЕТО и ПП на сайте", 
+            url="https://mersinwellness.com/keto-health.html"
+        )
+    )
 
     if isinstance(event, types.CallbackQuery):
-        await event.message.answer(text, parse_mode="HTML")
+        await event.message.answer(text, parse_mode="HTML", reply_markup=builder.as_markup())
         await event.answer()
     else:
-        await event.answer(text, parse_mode="HTML")
+        await event.answer(text, parse_mode="HTML", reply_markup=builder.as_markup())
