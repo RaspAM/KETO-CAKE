@@ -9,7 +9,7 @@ from config import BOT_TOKEN
 from handlers.start import router as start_router
 from handlers.catalog import router as catalog_router
 from handlers.keto_info import router as keto_info_router
-from handlers.reviews import router as reviews_router
+from handlers.feedback import router as feedback_router
 
 logging.basicConfig(level=logging.INFO)
 
@@ -46,7 +46,7 @@ async def main():
     dp.include_router(start_router)
     dp.include_router(catalog_router)
     dp.include_router(keto_info_router)
-    dp.include_router(reviews_router)
+    dp.include_router(feedback_router)
 
     await start_health_check_server()
 
