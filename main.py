@@ -20,7 +20,7 @@ async def set_main_menu(bot: Bot):
         BotCommand(command="catalog", description="Образцы тортов и КЖБУ"),
         BotCommand(command="info", description="Узнать о пользе КЕТО и ПП"),
         BotCommand(command="custom", description="Создайте свой вкус"),
-        BotCommand(command="reviews", description="Отзывы / Оставить отзыв"),
+        BotCommand(command="feedback", description="Отзывы / Оставить отзыв"),
         BotCommand(command="contacts", description="Связаться со мной"),
     ]
     await bot.set_my_commands(commands)
