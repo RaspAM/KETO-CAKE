@@ -11,16 +11,16 @@ from handlers.catalog import router as catalog_router
 from handlers.keto_info import router as keto_info_router
 from handlers.custom import router as custom_router  
 from handlers.feedback import router as feedback_router
+from handlers.contacts import router as contacts_router
 
 logging.basicConfig(level=logging.INFO)
 
 async def set_main_menu(bot: Bot):
     await bot.delete_my_commands()
     commands = [
-        BotCommand(command="start", description="Торты Правильного Питания и КЕТО"),
-        BotCommand(command="catalog", description="Образцы тортов и КЖБУ"),
+        BotCommand(command="catalog", description="Образцы тортов и КБЖУ"),
         BotCommand(command="info", description="Узнать о пользе КЕТО и ПП"),
-        BotCommand(command="custom", description="Создайте свой вкус"),
+        BotCommand(command="custom", description="Добавьте вкус и пользу"),
         BotCommand(command="feedback", description="Отзывы / Оставить отзыв"),
         BotCommand(command="contacts", description="Связаться со мной"),
     ]
@@ -49,6 +49,7 @@ async def main():
     dp.include_router(keto_info_router)
     dp.include_router(custom_router)
     dp.include_router(feedback_router)
+    dp.include_router(contacts_router)
 
     await start_health_check_server()
 
