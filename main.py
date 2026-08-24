@@ -44,6 +44,7 @@ async def main():
 
     await set_main_menu(bot)
 
+    # contacts подключаем первым, start_router остается для обработки /start
     dp.include_router(contacts_router)
     dp.include_router(start_router)
     dp.include_router(catalog_router)
