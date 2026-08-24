@@ -12,3 +12,4 @@ async def send_contacts(message: types.Message):
         "📍 Mersin, Mezitli, Davultepe, Soray-2",
         parse_mode="HTML"
     )
+    
