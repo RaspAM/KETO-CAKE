@@ -1,0 +1,14 @@
+from aiogram import Router, types
+from aiogram.filters import Command
+
+router = Router()
+
+@router.message(Command("contacts"))
+async def send_contacts(message: types.Message):
+    await message.answer(
+        "<b>Связаться со мной:</b>\n\n"
+        "📱 Telegram: @Mersinwellness\n"
+        "📞 WhatsApp: +90 520 592 88\n"
+        "📍 Mersin, Mezitli, Davultepe, Soray-2",
+        parse_mode="HTML"
+    )

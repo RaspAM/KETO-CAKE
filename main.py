@@ -9,7 +9,7 @@ from config import BOT_TOKEN
 from handlers.start import router as start_router
 from handlers.catalog import router as catalog_router
 from handlers.keto_info import router as keto_info_router
-from handlers.custom import router as custom_router  
+from handlers.custom import router as custom_router
 from handlers.feedback import router as feedback_router
 from handlers.contacts import router as contacts_router
 
@@ -44,12 +44,13 @@ async def main():
 
     await set_main_menu(bot)
 
+    # Ставим contacts_router первым, чтобы команда обрабатывалась мгновенно
+    dp.include_router(contacts_router)
     dp.include_router(start_router)
     dp.include_router(catalog_router)
     dp.include_router(keto_info_router)
     dp.include_router(custom_router)
     dp.include_router(feedback_router)
-    dp.include_router(contacts_router)
 
     await start_health_check_server()
 
