@@ -20,9 +20,10 @@ async def forward_to_admin(message: Message, bot: Bot):
     )
 
     await message.answer(
-        "✉️ <b>Ваше сообщение передано в личку!</b>\n"
-        "Спасибо за обращение, я отвечу вам в ближайшее время."
-    )
+    "✉️ <b>Ваше сообщение передано в личку!</b>\n"
+    "Спасибо за обращение, я отвечу вам в ближайшее время.",
+    parse_mode="HTML"
+)
 
 # 2. Ваш ответ на пересланное сообщение -> отправляем клиенту
 @router.message(F.reply_to_message & (F.from_user.id == ADMIN_ID_INT))
