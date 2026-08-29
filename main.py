@@ -12,6 +12,7 @@ from handlers.catalog import router as catalog_router
 from handlers.keto_info import router as keto_info_router
 from handlers.custom import router as custom_router
 from handlers.feedback import router as feedback_router
+from handlers.support import router as support_router
 
 logging.basicConfig(level=logging.INFO)
 
@@ -61,6 +62,7 @@ async def main():
     dp.include_router(keto_info_router)
     dp.include_router(custom_router)
     dp.include_router(feedback_router)
+    dp.include_router(support_router)
 
     await start_health_check_server()
 
