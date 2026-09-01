@@ -35,7 +35,7 @@ CATALOG_ITEMS = [
         )
     },
     {
-        "title": '🌊 Пудинг - бисквит "Морской"',
+        "title": 'Пудинг - бисквит "Морской"',
         "image": BASE_IMG_URL + "cake3.jpg",
         "params": "Ø 18 см | высота 6 см | ~1,1 кг",
         "price": "Базовый от 800 ₺",
@@ -65,8 +65,8 @@ CATALOG_ITEMS = [
 async def send_catalog_item(message: types.Message, item: dict):
     caption = (
         f"<b>{item['title']}</b>\n"
-        f"💰 <b>{item.get('price', '')}</b>\n"
-        f"📏 {item['params']}\n\n"
+        f"<b>{item.get('price', '')}</b>\n"
+        f"{item['params']}\n\n"
         f"{item.get('highlight', '')}\n\n"
         f"<b>КБЖУ на весь торт:</b>\n"
         f"{item['kbzhu']}"
