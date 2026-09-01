@@ -22,7 +22,7 @@ CATALOG_ITEMS = [
         )
     },
     {
-        "title": '🍫 Шоколадный торт "Море Какао"',
+        "title": 'Шоколадный торт "Море Какао"',
         "image": BASE_IMG_URL + "cake2_1.jpg",
         "params": "Ø 18 см | высота 6 см | ~1,2 кг",
         "price": "Базовый от 800 ₺",
@@ -48,7 +48,7 @@ CATALOG_ITEMS = [
         )
     },
     {
-        "title": "🎃 Ореховый Тыквенный Латте",
+        "title": "Ореховый Тыквенный Латте",
         "image": BASE_IMG_URL + "cake4.jpg",
         "params": "Ø 18 см | высота 6 см | ~1,3 кг",
         "price": "Базовый от 950 ₺",
@@ -65,11 +65,14 @@ CATALOG_ITEMS = [
 async def send_catalog_item(message: types.Message, item: dict):
     caption = (
         f"<b>{item['title']}</b>\n"
+        f"💰 <b>{item.get('price', '')}</b>\n"
         f"📏 {item['params']}\n\n"
+        f"{item.get('highlight', '')}\n\n"
         f"<b>КБЖУ на весь торт:</b>\n"
         f"{item['kbzhu']}"
     )
     
+      
     builder = InlineKeyboardBuilder()
     builder.row(
         types.InlineKeyboardButton(text="💬 Написать в Telegram", url="https://t.me/Mersinwellness"),
