@@ -75,8 +75,8 @@ async def send_catalog_item(message: types.Message, item: dict):
       
     builder = InlineKeyboardBuilder()
     builder.row(
-        types.InlineKeyboardButton(text="💬 Написать в Telegram", url="https://t.me/Mersinwellness"),
-        types.InlineKeyboardButton(text="📱 WhatsApp", url="https://wa.me/9052059288")
+        types.InlineKeyboardButton(text="🔵 Telegram", url="https://t.me/Mersinwellness"),
+        types.InlineKeyboardButton(text="🟢 WhatsApp", url="https://wa.me/9052059288")
     )
     
     try:
