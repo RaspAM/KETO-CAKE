@@ -36,7 +36,7 @@ CATALOG_ITEMS = [
     },
     {
         "title": 'Пудинг-бисквит "Морской"',
-        "image": BASE_IMG_URL + "cake3b.jpg",
+        "image": BASE_IMG_URL + "cake3_A.jpg",
         "params": "Ø 18 см | высота 6 см | ~1,3 кг",
         "price": "Базовый от 800 ₺",
         "highlight": "✨Экстракт голубики, морковь — забота о зрении.",
